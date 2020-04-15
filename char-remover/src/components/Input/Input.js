@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import Styles from './styles.css'
 
@@ -11,7 +11,6 @@ const Input = () => {
   }
 
   const showSeparatedString = (string) => {
-    let i = 0
     const separatedString = string.split('').map((char, index) => {
       return <p key={index} style={{padding: '0 0.15rem'}} onClick={() => handleDelete(index)} >{char}</p>
     });
