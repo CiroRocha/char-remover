@@ -5,34 +5,35 @@ import Styles from './styles.css'
 const Input = () => {
   const minChar = 4
   const [currentString, setCurrentString] = useState('')
-  let restString = ''
-  // const [restString, setRestString] = useState('')
 
   const handleChange = (evn) => {
     setCurrentString(evn.target.value)
-    // setRestString(...currentString)
   }
 
-  const handleDelete = (string) => {
-    console.log()
+  const showSeparatedString = (string) => {
+    let i = 0
+    const separatedString = string.split('').map((char, index) => {
+      return <p key={index} style={{padding: '0 0.15rem'}} onClick={() => handleDelete(index)} >{char}</p>
+    });
+    return separatedString
   }
 
-  useEffect(() => {
-    restString = [...currentString]
-    // setRestString(...currentString)
-    console.log(restString)
-  }, [currentString])
+  const handleDelete = ( index ) => {
+    const letter = currentString.split('')
+    letter.splice(index, 1)
+    setCurrentString(letter.join(''))
+  }
 
   return (
     <>
-      <input onChange={(e) => handleChange(e)} />
+      <input onChange={(e) => handleChange(e)} value={currentString} />
       {
         currentString.length >= minChar ?
         <h5>You wrote enough :)</h5> :
         <h5>You wrote {currentString.length} letters, you need to write at least {minChar - currentString.length} more letters</h5>
       }
 
-      <p>{restString}</p>
+      <div style={{display: 'flex'}}>{showSeparatedString(currentString)}</div>
     </>
   )
 }
